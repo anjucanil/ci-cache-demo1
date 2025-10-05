@@ -1,0 +1,24 @@
+name: CI Cache Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cache-example:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: prime-cache-ea0a419
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip  # You can change this path to anything cacheable
+          key: cache-ea0a419
+
+      - name: Show cache result
+        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
